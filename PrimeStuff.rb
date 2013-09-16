@@ -2,6 +2,7 @@
 
 module MathStuff
 
+  # Sieve of Eratosthenes
   def primes_below_limit(limit)
     primes = Array.new(limit).map.with_index { |t,i| i }
 
