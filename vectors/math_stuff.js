@@ -71,16 +71,17 @@
     // Line Segment Magnitude:  Smag
     // normalized segment:      Snorm
 
-    var s1 = line[0];
-    var s2 = line[1];
+    // Cp = s1 + ((s1 - point) • Snorm) * Snorm
 
-    var s1p   = VM.vectorSubtraction(point,s1);
-    var S     = VM.vectorSubtraction(s2,s1);
-    var Smag  = VM.vectorMagnitude(S);
-    var Snorm = VM.vectorNormalize(S);
+    var s1         = line[0];
+    var s2         = line[1];
+
+    var s1p        = VM.vectorSubtraction(point,s1);
+    var S          = VM.vectorSubtraction(s2,s1);
+    var Snorm      = VM.vectorNormalize(S);
 
     var dotProduct = VM.dotProduct(s1p, S);
-    var s1Cp = VM.scalarMultiplication(dotProduct, Snorm);
+    var s1Cp       = VM.scalarMultiplication(dotProduct, Snorm);
 
     return VM.vectorAddition(s1,s1Cp);
   };
