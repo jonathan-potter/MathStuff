@@ -24,7 +24,7 @@
     return vector.reduce(function(sum,element) {
       return sum + element;
     });
-  }
+  };
 
   // scalar to vector multiplication
   VM.scalarMultiplication = function (scalar, vector) {
@@ -84,6 +84,22 @@
     var s1Cp       = VM.scalarMultiplication(dotProduct, Snorm);
 
     return VM.vectorAddition(s1,s1Cp);
+  };
+
+  // returns true if the nearest point is between segment endpoints
+  VM.nearestPointBetweenEndpoints = function (segment, point) {
+    var Cp = VM.nearestPointOnLineToGivenPoint(segment, point);
+    if        (Cp[0] < segment[0][0] && Cp[0] < segment[1][0]) {
+      return false;
+    } else if (Cp[0] > segment[0][0] && Cp[0] > segment[1][0]) {
+      return false;
+    } else if (Cp[1] < segment[0][1] && Cp[1] < segment[1][1]) {
+      return false;
+    } else if (Cp[1] > segment[0][1] && Cp[1] > segment[1][1]) {
+      return false;
+    } else {
+      return true;
+    };
   };
 
 })(this);

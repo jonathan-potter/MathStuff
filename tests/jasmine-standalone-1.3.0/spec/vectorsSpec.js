@@ -47,4 +47,12 @@ describe("Vector", function() {
     var nearestPoint = VM.nearestPointOnLineToGivenPoint([[0,0],[9,0]],[5,5]);
     expect(nearestPoint).toEqual([5,0]);
   });
+
+  it("nearestPointBetweenEndpoints returns true if the nearest point is between segment endpoints", function () {
+    var nearestPoint = VM.nearestPointBetweenEndpoints([[0,0],[9,0]],[5,5]);
+    expect(nearestPoint).toEqual(true);
+    var nearestPoint = VM.nearestPointBetweenEndpoints([[0,0],[1,0]],[-1,1]);
+    expect(nearestPoint).toEqual(false);
+  })
+
 });
