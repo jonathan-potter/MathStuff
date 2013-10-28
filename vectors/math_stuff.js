@@ -87,18 +87,41 @@
   };
 
   // returns true if the nearest point is between segment endpoints
-  VM.nearestPointBetweenEndpoints = function (segment, point) {
-    var Cp = VM.nearestPointOnLineToGivenPoint(segment, point);
-    if        (Cp[0] < segment[0][0] && Cp[0] < segment[1][0]) {
+  VM.pointOnLineBetweenEndpoints = function (segment, point) {
+    if        (point[0] < segment[0][0] && point[0] < segment[1][0]) {
       return false;
-    } else if (Cp[0] > segment[0][0] && Cp[0] > segment[1][0]) {
+    } else if (point[0] > segment[0][0] && point[0] > segment[1][0]) {
       return false;
-    } else if (Cp[1] < segment[0][1] && Cp[1] < segment[1][1]) {
+    } else if (point[1] < segment[0][1] && point[1] < segment[1][1]) {
       return false;
-    } else if (Cp[1] > segment[0][1] && Cp[1] > segment[1][1]) {
+    } else if (point[1] > segment[0][1] && point[1] > segment[1][1]) {
       return false;
     } else {
       return true;
+    };
+  };
+
+  // returns endpoint closer to point
+  VM.closerEndpointToPoint = function (segment, point) {
+    var vector1    = VM.vectorSubtraction(segment[0], point);
+    var vector2    = VM.vectorSubtraction(segment[1], point);
+    var magnitude1 = VM.vectorMagnitude(vector1);
+    var magnitude2 = VM.vectorMagnitude(vector2);
+
+    if (magnitude1 < magnitude2) {
+      return segment[0];
+    } else {
+      return segment[1];
+    };
+  };
+
+  // returns the closest spot on a line segment to a point
+  VM.nearestPointOnLineSegmentToGivenPoint = function (segment, point) {
+    var nearestPoint = VM.nearestPointOnLineToGivenPoint(segment, point);
+    if (VM.pointOnLineBetweenEndpoints(segment, nearestPoint)) {
+      return nearestPoint;
+    } else {
+      return VM.closerEndpointToPoint(segment, point);
     };
   };
 
