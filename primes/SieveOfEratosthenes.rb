@@ -13,5 +13,9 @@ def sieve_of_eratosthenes(limit)
 end
 
 if __FILE__ == $0
-  puts sieve_of_eratosthenes(1000)
+  if ARGV[0]
+    p sieve_of_eratosthenes(ARGV[0].to_i)
+  else
+    p sieve_of_eratosthenes(1000)
+  end
 end
