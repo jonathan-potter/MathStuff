@@ -1,15 +1,25 @@
 def sieve_of_eratosthenes(limit)
-  primes = Array.new(limit).map.with_index { |_,index| index }
+  primes = (0...limit).to_a
 
-  2.upto(limit) do |index|
+  primes[0] = nil
+  primes = set_non_primes_to_nil(primes, limit)
+  non_nil_values_from_array(primes)
+end
+
+def set_non_primes_to_nil(array, limit)
+  (2...limit).to_a.each do |index|
     number = index
-    begin
+    while number < limit
       number += index
-      primes[number] = nil
-    end until number > limit
+      array[number] = nil if number < limit
+    end
   end
 
-  primes.select { |element| !element.nil? }
+  array
+end
+
+def non_nil_values_from_array(array)
+  array.select { |element| !element.nil? }
 end
 
 if __FILE__ == $0
